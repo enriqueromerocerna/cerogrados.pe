@@ -82,39 +82,44 @@
   </section>
 
   <!-- SABORES RASPADILLA -->
-  <section id="sabores" class="sabores">
-    <p class="eyebrow">Los personajes</p>
-    <h2 class="section-title">Sabores de raspadilla</h2>
-    <p class="section-sub">7 sabores de pura fruta. Elige hasta 2 para tu raspadilla.</p>
+  <section id="sabores" class="raspadillas">
+    <!-- BLOQUE 1: título y promesa -->
+    <p class="eyebrow">Nuestra carta</p>
+    <h2 class="section-title">NUESTRAS RASPADILLAS 🍧</h2>
+    <p class="section-sub">Refrescantes, deliciosas y hechas con pura fruta y 100% agua purificada. ¡Elige tu combinación favorita o arma la tuya!</p>
 
-    <div class="sabor-grid">
-      <div class="sabor-card">
-        <img src="assets/fresa_t.png" alt="Fresa">
-        <span>Fresa</span>
+    <!-- BLOQUE 2: carrusel animado de combinaciones estrella -->
+    <div class="combo-carousel">
+      <div class="combo-media">
+        <div class="combo-img-stack" id="comboImgStack"></div>
       </div>
-      <div class="sabor-card">
-        <img src="assets/menta_t.png" alt="Menta">
-        <span>Menta</span>
+      <div class="combo-info">
+        <div class="combo-text" id="comboText">
+          <h3 id="comboName"></h3>
+          <p id="comboFlavors"></p>
+        </div>
+        <div class="combo-controls">
+          <button type="button" id="comboPrev" class="combo-arrow" aria-label="Combinación anterior">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" id="comboNext" class="combo-arrow" aria-label="Siguiente combinación">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="sabor-card">
-        <img src="assets/tamarindo_t.png" alt="Tamarindo">
-        <span>Tamarindo</span>
-      </div>
-      <div class="sabor-card">
-        <img src="assets/mango_t.png" alt="Mango">
-        <span>Mango</span>
-      </div>
-      <div class="sabor-card">
-        <img src="assets/coco_t.png" alt="Coco">
-        <span>Coco</span>
-      </div>
-      <div class="sabor-card">
-        <img src="assets/lucuma_t.png" alt="Lúcuma">
-        <span>Lúcuma</span>
-      </div>
-      <div class="sabor-card">
-        <img src="assets/maracuya_t.png" alt="Maracuyá">
-        <span>Maracuyá</span>
+    </div>
+
+    <!-- BLOQUE 3: menú tradicional / arma la tuya -->
+    <div class="build-your-own">
+      <p class="build-title">¿Prefieres armar la tuya? Elige tus sabores:</p>
+      <div class="flavor-pills">
+        <span class="flavor-pill">Fresa</span>
+        <span class="flavor-pill">Tamarindo</span>
+        <span class="flavor-pill">Mango</span>
+        <span class="flavor-pill">Maracuyá</span>
+        <span class="flavor-pill">Menta</span>
+        <span class="flavor-pill">Coco</span>
+        <span class="flavor-pill">Lúcuma</span>
       </div>
     </div>
   </section>

@@ -1,5 +1,82 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// ---- Carrusel animado de combinaciones estrella (estilo Aceternity animated-testimonials) ----
+const COMBOS = [
+  { name: 'FROST BERRY', flavors: 'Fresa + Menta', img: 'https://via.placeholder.com/700x700/FE018F/FFFFFF?text=Frost+Berry' },
+  { name: 'MANGO FREEZE', flavors: 'Mango + Menta', img: 'https://via.placeholder.com/700x700/FFCC00/290D62?text=Mango+Freeze' },
+  { name: 'TROPIC GOLD', flavors: 'Mango + Maracuyá', img: 'https://via.placeholder.com/700x700/290D62/FFCC00?text=Tropic+Gold' },
+  { name: 'ACID TROPIC', flavors: 'Tamarindo + Maracuyá', img: 'https://via.placeholder.com/700x700/FE018F/FFCC00?text=Acid+Tropic' },
+  { name: 'COCO BERRY', flavors: 'Coco + Fresa', img: 'https://via.placeholder.com/700x700/290D62/FE018F?text=Coco+Berry' },
+];
+
+(function initComboCarousel() {
+  const stack = document.getElementById('comboImgStack');
+  const nameEl = document.getElementById('comboName');
+  const flavorsEl = document.getElementById('comboFlavors');
+  const textEl = document.getElementById('comboText');
+  const prevBtn = document.getElementById('comboPrev');
+  const nextBtn = document.getElementById('comboNext');
+  if (!stack || !nameEl) return;
+
+  let active = 0;
+  let autoplayTimer = null;
+
+  // crear las imágenes una sola vez
+  const imgEls = COMBOS.map((combo, i) => {
+    const img = document.createElement('img');
+    img.src = combo.img;
+    img.alt = combo.name;
+    img.className = 'combo-img';
+    stack.appendChild(img);
+    return img;
+  });
+
+  function isActive(i) { return i === active; }
+
+  function render() {
+    imgEls.forEach((img, i) => {
+      if (isActive(i)) {
+        img.style.opacity = '1';
+        img.style.zIndex = '5';
+        img.style.transform = 'scale(1) rotate(0deg) translateY(0)';
+      } else {
+        const offset = (i - active + COMBOS.length) % COMBOS.length;
+        const dir = i % 2 === 0 ? 1 : -1;
+        img.style.opacity = offset === 1 || offset === COMBOS.length - 1 ? '.7' : '0';
+        img.style.zIndex = String(COMBOS.length - offset);
+        img.style.transform = `scale(0.92) rotate(${dir * 6}deg) translateY(18px)`;
+      }
+    });
+
+    textEl.classList.add('is-changing');
+    setTimeout(() => {
+      nameEl.textContent = COMBOS[active].name;
+      flavorsEl.textContent = COMBOS[active].flavors;
+      textEl.classList.remove('is-changing');
+    }, 180);
+  }
+
+  function goTo(i) {
+    active = (i + COMBOS.length) % COMBOS.length;
+    render();
+    resetAutoplay();
+  }
+
+  function next() { goTo(active + 1); }
+  function prev() { goTo(active - 1); }
+
+  function resetAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+    autoplayTimer = setInterval(next, 5000);
+  }
+
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+
+  render();
+  resetAutoplay();
+})();
+
 const ORDER_WHATSAPP = '51906591534';
 
 const SABORES_RASPADILLA = ['Fresa', 'Menta', 'Tamarindo', 'Mango', 'Coco', 'Lúcuma', 'Maracuyá'];
