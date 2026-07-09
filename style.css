@@ -250,11 +250,10 @@ a{ color:inherit; text-decoration:none; }
   mask-size: 100% 100%;
   z-index: 2;
 }
-.drip-mid.flip{
-  background: var(--navy);
-  transform: rotate(180deg);
+.drip-standalone.flip{
+  background:var(--navy);
+  transform:rotate(180deg);
 }
-
 .drip-standalone{
   height:110px;
   background:var(--navy);
