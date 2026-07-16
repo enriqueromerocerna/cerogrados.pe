@@ -1,3 +1,22 @@
+// ======================================================================
+// 🚫 SABORES AGOTADOS — edítalo aquí cada día, nada más
+// Copia el nombre EXACTO del sabor (tal cual está abajo) entre comillas
+// y ponlo dentro de la lista para que salga tachado y bloqueado.
+// Para volver a activarlo, solo bórralo de la lista.
+//
+// Sabores de RASPADILLA: Fresa, Menta, Tamarindo, Mango, Coco, Lúcuma, Maracuyá
+// Ejemplo: const SABORES_NO_DISPONIBLES_RASPADILLA = ['Coco', 'Menta'];
+const SABORES_NO_DISPONIBLES_RASPADILLA = [
+
+];
+
+// Sabores de MARCIANO: Fresa con leche, Maracumango, Lúcuma con leche, Maní con leche, Coco con leche, Tamarindo
+// Ejemplo: const SABORES_NO_DISPONIBLES_MARCIANO = ['Maní con leche'];
+const SABORES_NO_DISPONIBLES_MARCIANO = [
+
+];
+// ======================================================================
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // ---- Carrusel animado de combinaciones estrella (estilo Aceternity animated-testimonials) ----
@@ -103,13 +122,16 @@ const resumenTotal = document.getElementById('resumenTotal');
 let ubicacionUrl = null;
 
 // ---- construir bloques de sabor por unidad ----
-function chipsHtml(sabores, inputType, groupName) {
-  return sabores.map(s => `
-    <label class="chip">
-      <input type="${inputType}" name="${groupName}" value="${s}">
-      <span>${s}</span>
+function chipsHtml(sabores, inputType, groupName, noDisponibles = []) {
+  return sabores.map(s => {
+    const agotado = noDisponibles.includes(s);
+    return `
+    <label class="chip${agotado ? ' chip-agotado' : ''}">
+      <input type="${inputType}" name="${groupName}" value="${s}" ${agotado ? 'disabled' : ''}>
+      <span>${s}${agotado ? ' <em>(agotado)</em>' : ''}</span>
     </label>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function renderRaspadillaBlocks() {
@@ -123,7 +145,7 @@ function renderRaspadillaBlocks() {
         <p class="unit-title">🍧 Raspadilla ${n > 1 ? i : ''}</p>
         ${mostrarNombre ? `<input type="text" class="unit-name" data-role="nombre" placeholder="¿Quién la va a disfrutar?">` : ''}
         <div class="chip-group" data-role="sabores" data-max="2">
-          ${chipsHtml(SABORES_RASPADILLA, 'checkbox', groupName)}
+          ${chipsHtml(SABORES_RASPADILLA, 'checkbox', groupName, SABORES_NO_DISPONIBLES_RASPADILLA)}
         </div>
       </div>`;
   }
@@ -142,7 +164,7 @@ function renderMarcianoBlocks() {
         <p class="unit-title">🧊 Marciano ${n > 1 ? i : ''}</p>
         ${mostrarNombre ? `<input type="text" class="unit-name" data-role="nombre" placeholder="¿Quién lo va a disfrutar?">` : ''}
         <div class="chip-group" data-role="sabores">
-          ${chipsHtml(SABORES_MARCIANO, 'radio', groupName)}
+          ${chipsHtml(SABORES_MARCIANO, 'radio', groupName, SABORES_NO_DISPONIBLES_MARCIANO)}
         </div>
       </div>`;
   }
