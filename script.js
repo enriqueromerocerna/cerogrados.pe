@@ -79,6 +79,10 @@ const COMBOS = [
 
 const ORDER_WHATSAPP = '51906591534';
 
+// ---- precios ----
+const PRECIO_RASPADILLA = 5;
+const PRECIO_MARCIANO = 2;
+
 const SABORES_RASPADILLA = ['Fresa', 'Menta', 'Tamarindo', 'Mango', 'Coco', 'Lúcuma', 'Maracuyá'];
 const SABORES_MARCIANO = ['Fresa con leche', 'Maracumango', 'Lúcuma con leche', 'Maní con leche', 'Coco con leche', 'Tamarindo'];
 
@@ -93,6 +97,8 @@ const btnUbicacion = document.getElementById('btnUbicacion');
 const ubicacionStatus = document.getElementById('ubicacionStatus');
 const formError = document.getElementById('formError');
 const form = document.getElementById('orderForm');
+const resumenLista = document.getElementById('resumenLista');
+const resumenTotal = document.getElementById('resumenTotal');
 
 let ubicacionUrl = null;
 
@@ -157,6 +163,39 @@ function attachMaxLimit(container) {
   });
 }
 
+// ---- resumen de precio (se actualiza en vivo con tipo y cantidades) ----
+function formatearSoles(valor) {
+  return `S/ ${valor.toFixed(2)}`;
+}
+
+function actualizarResumenPrecio() {
+  if (!resumenLista || !resumenTotal) return;
+
+  const tipo = tipoSelect.value;
+  const esRaspadilla = tipo === 'Raspadilla' || tipo === 'Ambos';
+  const esMarciano = tipo === 'Marciano' || tipo === 'Ambos';
+
+  let filas = '';
+  let total = 0;
+
+  if (esRaspadilla) {
+    const n = Math.max(1, parseInt(cantidadRaspadillaInput.value) || 1);
+    const subtotal = n * PRECIO_RASPADILLA;
+    total += subtotal;
+    filas += `<li><span>${n} raspadilla${n > 1 ? 's' : ''} × ${formatearSoles(PRECIO_RASPADILLA)}</span><span>${formatearSoles(subtotal)}</span></li>`;
+  }
+
+  if (esMarciano) {
+    const n = Math.max(1, parseInt(cantidadMarcianoInput.value) || 1);
+    const subtotal = n * PRECIO_MARCIANO;
+    total += subtotal;
+    filas += `<li><span>${n} marciano${n > 1 ? 's' : ''} × ${formatearSoles(PRECIO_MARCIANO)}</span><span>${formatearSoles(subtotal)}</span></li>`;
+  }
+
+  resumenLista.innerHTML = filas;
+  resumenTotal.textContent = formatearSoles(total);
+}
+
 // ---- mostrar solo lo relevante según el producto elegido ----
 function actualizarVisibilidad() {
   const tipo = tipoSelect.value;
@@ -170,11 +209,12 @@ function actualizarVisibilidad() {
 
   if (esRaspadilla) renderRaspadillaBlocks();
   if (esMarciano) renderMarcianoBlocks();
+  actualizarResumenPrecio();
 }
 
 tipoSelect.addEventListener('change', actualizarVisibilidad);
-cantidadRaspadillaInput.addEventListener('input', renderRaspadillaBlocks);
-cantidadMarcianoInput.addEventListener('input', renderMarcianoBlocks);
+cantidadRaspadillaInput.addEventListener('input', () => { renderRaspadillaBlocks(); actualizarResumenPrecio(); });
+cantidadMarcianoInput.addEventListener('input', () => { renderMarcianoBlocks(); actualizarResumenPrecio(); });
 
 actualizarVisibilidad(); // estado inicial
 
@@ -254,25 +294,33 @@ form.addEventListener('submit', (e) => {
   // construir mensaje
   let mensaje = `¡Hola Cero Grados! 🍧 Quiero hacer un pedido:\n\n`;
 
+  let total = 0;
+
   if (itemsRaspadilla.length) {
+    const subtotalRaspadilla = itemsRaspadilla.length * PRECIO_RASPADILLA;
+    total += subtotalRaspadilla;
     mensaje += `RASPADILLAS (${itemsRaspadilla.length}):\n`;
     itemsRaspadilla.forEach((item, i) => {
       mensaje += `${i + 1}. ${item.sabores.join(', ')}`;
       if (item.nombre) mensaje += ` — para: ${item.nombre}`;
       mensaje += `\n`;
     });
-    mensaje += `\n`;
+    mensaje += `Subtotal raspadillas: ${formatearSoles(subtotalRaspadilla)}\n\n`;
   }
 
   if (itemsMarciano.length) {
+    const subtotalMarciano = itemsMarciano.length * PRECIO_MARCIANO;
+    total += subtotalMarciano;
     mensaje += `MARCIANOS (${itemsMarciano.length}):\n`;
     itemsMarciano.forEach((item, i) => {
       mensaje += `${i + 1}. ${item.sabores.join(', ')}`;
       if (item.nombre) mensaje += ` — para: ${item.nombre}`;
       mensaje += `\n`;
     });
-    mensaje += `\n`;
+    mensaje += `Subtotal marcianos: ${formatearSoles(subtotalMarciano)}\n\n`;
   }
+
+  mensaje += `TOTAL (sin delivery): ${formatearSoles(total)}\n\n`;
 
   mensaje += `Nombre (quien pide): ${nombreCliente}\n`;
   if (referencia) mensaje += `Dirección / referencia: ${referencia}\n`;

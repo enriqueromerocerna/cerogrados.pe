@@ -842,6 +842,85 @@ a{ color:inherit; text-decoration:none; }
   min-height: 1.2em;
 }
 
+/* ===== resumen de pedido (precio, nota de delivery y pago por Yape) ===== */
+.resumen-pedido{
+  border: 3px solid var(--navy);
+  border-radius: 20px;
+  background: var(--cream);
+  padding: 1.3rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+.resumen-title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.resumen-lista{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.resumen-lista li{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-weight: 600;
+  font-size: .92rem;
+  padding-bottom: .5rem;
+  border-bottom: 1.5px dashed rgba(41,13,98,.25);
+}
+.resumen-total{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  padding-top: .1rem;
+  border-top: 2.5px solid var(--navy);
+}
+.resumen-nota{
+  background: rgba(254,1,143,.08);
+  border: 2px solid var(--pink);
+  border-radius: 14px;
+  padding: .8rem 1rem;
+  font-size: .85rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--navy);
+  margin: 0;
+}
+.resumen-nota strong{ color: var(--pink-deep); }
+.resumen-pago{
+  background: rgba(255,204,0,.18);
+  border: 2px solid var(--yellow);
+  border-radius: 14px;
+  padding: .9rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+}
+.resumen-pago-title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: .95rem;
+  margin: 0;
+}
+.resumen-pago p{
+  margin: 0;
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.resumen-pago .hint{ margin-top: .15rem; }
+
 /* ===== ubicación ===== */
 .ubicacion{
   padding: 4.5rem 1.5rem;

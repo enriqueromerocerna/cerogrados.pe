@@ -267,6 +267,21 @@
         <p id="ubicacionStatus" class="hint"></p>
       </div>
 
+      <div id="resumenPedido" class="resumen-pedido" aria-live="polite">
+        <p class="resumen-title">🧾 Resumen de tu pedido</p>
+        <ul id="resumenLista" class="resumen-lista"></ul>
+        <div class="resumen-total">
+          <span>Total</span>
+          <span id="resumenTotal">S/ 0.00</span>
+        </div>
+        <p class="resumen-nota">⚠️ <strong>NOTA IMPORTANTE:</strong> a este precio aún le falta el costo del delivery. Te lo confirmamos por WhatsApp apenas nos envíes tu pedido completo.</p>
+        <div class="resumen-pago">
+          <p class="resumen-pago-title">💛 ¿Ya quieres ir adelantando tu pago?</p>
+          <p>Puedes hacer tu <strong>Yape</strong> al <strong>+51 906 591 534</strong>, a nombre de <strong>Enrique Romero C.</strong></p>
+          <p class="hint">Envíanos la captura de tu pago recién después de que te confirmemos el costo del delivery y estés de acuerdo con el total. 😉</p>
+        </div>
+      </div>
+
       <button type="submit" id="btnEnviar" class="btn btn-primary btn-block">Enviar pedido por WhatsApp</button>
       <p id="formError" class="form-error" role="alert"></p>
     </form>
