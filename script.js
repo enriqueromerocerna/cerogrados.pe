@@ -7,13 +7,13 @@
 // Sabores de RASPADILLA: Fresa, Menta, Tamarindo, Mango, Coco, Lúcuma, Maracuyá
 // Ejemplo: const SABORES_NO_DISPONIBLES_RASPADILLA = ['Coco', 'Menta'];
 const SABORES_NO_DISPONIBLES_RASPADILLA = [
-'Lúcuma'
+
 ];
 
 // Sabores de MARCIANO: Fresa con leche, Maracumango, Lúcuma con leche, Maní con leche, Coco con leche, Tamarindo
 // Ejemplo: const SABORES_NO_DISPONIBLES_MARCIANO = ['Maní con leche'];
 const SABORES_NO_DISPONIBLES_MARCIANO = [
-'Maracumango', 'Lúcuma con leche', 'Maní con leche', 'Coco con leche'
+'Maracumango', 'Lúcuma con leche', 'Maní con leche', 'Coco con leche', 'Fresa con leche'
 ];
 // ======================================================================
 
